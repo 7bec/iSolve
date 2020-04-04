@@ -30,9 +30,97 @@ export default new Vuex.Store({
   getters:{
     user (state){
       return state.user
+    },
+    loading(state){
+      return state.loading
     }
   },
   actions: {
+    signUserUp ({commit}, payload){
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      .then(
+        user => {
+          commit('setLoading', false)
+          const newUser = {
+            id: firebase.auth().currentUser.uid,
+            photoUrl: firebase.auth().currentUser.photoURL,
+            name: firebase.auth().currentUser.displayName,
+            email: firebase.auth().currentUser.email
+          }
+          firebase.firestore().collection("usuarios").doc(newUser.id).set({
+            name: newUser.name,
+            isEmployee: false
+          
+          })
+          .then(function() {
+            console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+            console.error("Error writing document: ", error);
+          });
+          
+          commit('setUser', newUser )
+
+        } 
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
+    },
+    signUserIn({commit}, payload){
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      .then(
+        user => {
+
+          const newUser = {
+            id: firebase.auth().currentUser.uid,
+            photoUrl: firebase.auth().currentUser.photoURL,
+            name: firebase.auth().currentUser.displayName,
+            email: firebase.auth().currentUser.email
+          }
+          commit('setLoading', false)
+          commit('isWithEmail', true)
+          
+          firebase.firestore().collection("usuarios").doc(newUser.id).update({
+            name: newUser.name
+          })
+          .then(function() {
+            console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+            console.error("Error writing document: ", error);
+          });
+          commit('setUser', newUser )
+          
+          
+        } 
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
+
+      
+    },
+     signUserOut({commit}){
+      commit('setLoading', false)
+      commit('clearError')
+      firebase.auth().signOut()
+    },
+    clearError({commit}){
+      commit('clearError')
+    },
     signUserGoogle({commit}){
       const googleProvider = new firebase.auth.GoogleAuthProvider()
       googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly')
@@ -47,29 +135,9 @@ export default new Vuex.Store({
       commit('clearError')
       firebase.auth().signInWithRedirect(facebookProvider)
       
-    },
-    signUserOut({commit}){
-      commit('setLoading', true)
-      commit('clearError')
-      firebase.auth().signOut()
-      
-    },
-    clearError({commit}){
-      commit('clearError')
-    },
-    emailLogin({commit},payload){
-      firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-      .then(function() {
-        // The link was successfully sent. Inform the user.
-        // Save the email locally so you don't need to ask the user for it again
-        // if they open the link on the same device.
-        window.localStorage.setItem('emailForSignIn', email);
-      })
-      .catch(function(error) {
-        // Some error occurred, you can inspect the code: error.code
-      });
+    }
 
-    } 
+   
   },
   modules: {
   }

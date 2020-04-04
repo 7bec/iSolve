@@ -1,6 +1,6 @@
 
 <template>
-    <v-container style="width:100%; height:100%; background:#03a7df;" class="change-font alinhamento">
+    <v-container fluid style="width:100%; height:100%;">
         <v-row class="mb-0 mt-0">
             <v-col
                 sm="6"

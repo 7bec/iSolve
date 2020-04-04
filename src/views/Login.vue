@@ -1,115 +1,44 @@
-<template>
-  <span>
-    <v-container class="img">
-      <v-flex sm="6" md="5" offset-md="2" lg="6" offset-lg="0" >
-          <v-img  contain :src="require('../../imagens/logo.png')"></v-img>
-      </v-flex>
-    </v-container>
-    <v-container>  
-      <form v-on:submit.prevent="entrar">
-        <v-row  no-gutters>
-          <v-col cols="12" sm="6" class="col"  >
-              <v-text-field
-                  label="Email"
-                  solo                
-                  name="email"
-                  id="email"
-                  light
-                  background-color="white"
-                  type="email"
-                  required
-                  persistent-hint
-                  v-model="email"
-                  color="white"
-                  style="color:white;"
-                  rounded
-              ></v-text-field>
-              
-              <v-text-field
-                  label="Senha"
-                  light
-                  background-color="white "
-                  solo 
-                  v-model="password"
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  rounded
-              ></v-text-field>
-              <v-btn style="width:100%;" color="#4169E1" rounded dark type="submit" @click="entrar" :disabled="loading" :loading="loading">
-                Entrar 
-              <span slot="loader" class="custom-loader">
-                  <v-icon light>cached</v-icon>
-              </span>  
-              </v-btn>
-                  <v-btn rounded text color="#4169E1" style="font-size:10px; width:100%; color:white;">
-                  Esqueci minha senha
-              </v-btn>
-              <v-btn  rounded text   @click="signUp()" style="font-size:15px; width:100%; color:white; margin-top:10%;">
-                  <p >CRIAR CONTA</p>
-              </v-btn>
-              <p class="text-center">ou </p>
-              <v-btn rounded text style="font-size:15px; width:100%;" dark background-color="#4169E1"  @click.stop="dialog = true">
-                  <p>Entrar com minha<br> rede social</p>
-              </v-btn>
-          </v-col>
-        </v-row>
-      </form>
-    </v-container>
-    <v-row justify="center">
-      <v-dialog v-model="dialog"   max-width="600px">
-        <v-card color="white" class="text-center">
-          <v-card-title>
-          <span class="text-center" style="color: #03a7df;">Redes sociais</span>
-          </v-card-title>
-          <v-col
-              sm="6"
-              md="5"
-              offset-md="2"
-              lg="6"
-              offset-lg="0">
-                  <v-btn rounded color="error" @click="google">
-                      <v-icon color="white" left>fab fa-google</v-icon>
-                      <span>Login com o Google</span>
-                  </v-btn>
-          </v-col>
-          <v-col
-              sm="6"
-              md="5"
-              offset-md="2"
-              lg="6"
-              offset-lg="0">
-                  <v-btn rounded color="primary" @click="facebook">
-                      <v-icon color="white" left>fab fa-facebook</v-icon>
-                  <span>Login com o Facebook</span>
-                  </v-btn>
-          </v-col>         
-        </v-card>
-      </v-dialog>
-    </v-row>
-  </span>
+<template>  
+  <v-container class="pa-0 ma-0">
+    <v-col  cols="12" align="center" >
+      <v-row>
+        <v-img contain :src="require('../../imagens/logo.png')" style="height:150px; width:150px;"></v-img>
+      </v-row>
+    <v-row class="mt-0 " justify="center">
+        <v-btn class="mr-3"  v-if="registrar==true& entrar==false" @click="entrarComponent()" text>Entrar</v-btn> 
+        <!-- <v-divider vertical dark inset></v-divider>      -->
+        <v-btn v-if="entrar==true" text @click="registrarComponent()">Registrar-se</v-btn> 
+        <login  v-if="entrar==true& registrar==false"></login>
+        <cadastro v-if="registrar==true& entrar==false"></cadastro>
+      </v-row>
+    </v-col>
+  </v-container>
 </template>
 
 <script>
+import login from '../components/Login'
+import cadastro from '../components/Cadastro'
 export default {
      data () {
       return {
-        dialog: false,
-        email: '',
-        password: ''
+        entrar:true,
+        registrar:false
       }
     },
+    components:{
+      login: login,
+      cadastro: cadastro
+    },
     methods:{
-        entrar(){
-              this.$store.dispatch('emailLogin', {email: this.email, password: this.password})
+        registrarComponent(){
+          this.entrar=false
+          this.registrar=true
         },
-        google() {
-            this.$store.dispatch('signUserGoogle')
-        },
-        facebook() {
-            this.$store.dispatch('signUserFacebook')
-        },
+        entrarComponent(){
+          this.entrar=true
+          this.registrar=false
+        }
+
     },
       watch: {
         user(value){

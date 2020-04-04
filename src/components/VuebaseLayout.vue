@@ -5,8 +5,7 @@
       app
       clipped
       right
-      style="background:#03a7df; "
-    >
+      style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);"    >
       <v-list dense>
         <v-list-item
           v-for="item in items"
@@ -55,12 +54,12 @@
       <v-app-bar-nav-icon  @click.stop="drawer = !drawer" ></v-app-bar-nav-icon>
      
     </v-toolbar>
-    <v-content>
+    <v-content style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);">
         <router-view></router-view>
     </v-content>
   </v-app>
-  <v-app v-else>
-    <v-content style="background:#03a7df;">
+  <v-app v-else >
+    <v-content style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);">
         <router-view></router-view>
     </v-content>
   </v-app>
