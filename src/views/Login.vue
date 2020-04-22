@@ -5,7 +5,7 @@
         <v-img contain :src="require('../../imagens/logo.png')" style="height:150px; width:150px;"></v-img>
       </v-row>
     <v-row class="mt-0 " justify="center">
-        <v-btn class="mr-3"  v-if="registrar==true& entrar==false" @click="entrarComponent()" text>Entrar</v-btn> 
+        <v-btn class="mr-3 mt-0"  v-if="registrar==true& entrar==false" @click="entrarComponent()" text>Entrar</v-btn> 
         <!-- <v-divider vertical dark inset></v-divider>      -->
         <v-btn v-if="entrar==true" text @click="registrarComponent()">Registrar-se</v-btn> 
         <login  v-if="entrar==true& registrar==false"></login>

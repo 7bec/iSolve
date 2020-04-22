@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
-import Signup from '../views/Signup'
 import Home from '../views/Home'
 import Orcamento from '../views/Orcamento'
 import Servico from '../views/Servico'
@@ -13,11 +12,6 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/signup',
-    name: 'signUp',
-    component: Signup,
   },
   {
     path: '/home',

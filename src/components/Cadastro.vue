@@ -34,6 +34,14 @@
               required
               color="white"
             ></v-text-field>
+            <v-text-field
+              label="Data de nascimento"
+              v-model="data"
+              prepend-icon="date_range"
+              type="date"
+              required
+              color="white"
+            ></v-text-field>
           </v-row>
           <v-row justify="center" class="mt-2" style="width:90%;">
             <v-btn color="white" style="width:60%; border-radius:10px;" outlined  type="submit" :disabled="loading" :loading="loading" @click="onsignUp()" >Criar conta</v-btn>
