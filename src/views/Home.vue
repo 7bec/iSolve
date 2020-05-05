@@ -1,146 +1,39 @@
 
 <template>
-    <v-container fluid style="width:100%; height:100%;">
-        <v-row class="mb-0 mt-0">
+    <v-container fluid >
+        <v-row dense>
             <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                offset-lg="0"
-            >       
-                <v-card
-                    class="card"
-                    style="border:1px solid white;"
-                    color="#03a7df"
-                    outlined
-                    hover
-                    tile
-                    to='/orcamento'
-                >
-                <v-icon x-large  style="width:100%;"> fas fa-sticky-note</v-icon>
-                <h3 style="color:white;" class="text-center alinhar-texto">Solicitar meu orçamento</h3>
-                </v-card>
-            </v-col>
-            <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                offset-lg="0"
-              
+            v-for="card in cards"
+            :key="card.title"
+            :cols="card.flex"
+            style="width:60%;"
+            class="text-center "
             >
-                <v-card
-                    color="#03a7df"
-                    class="card"
-                    style="border:1px solid white;"
-                    outlined
-                    hover
-                    to='/historico'
-                    tile
-                >
-                    <v-icon x-large  style="width:100%;">watch_later</v-icon>
-                    <h3 style="color:white;" class="text-center">Histórico de consultas</h3>
-                </v-card>
+            <v-card  id="card" class="text-center mt-4" raised dark>
+                
+                <v-avatar circle style="margin-top:30px; position:relative; border-radius:60px;" size="62" color="white">
+                    <v-icon color="blue" dark >{{card.icon}}</v-icon>
+                </v-avatar>
+                <v-card-title id="text" class="text--center" style="border:1px solid black;"  ><h5 style="color:white; ">{{card.title}}</h5></v-card-title>
+            </v-card>
             </v-col>
         </v-row>
-        <v-row class="mb-0 mt-0">
-            <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                offset-lg="0"
-                style="width:50%;"
-            >
-                <v-card
-                    color="#03a7df"
-                    class="card"
-                    style="border:1px solid white;"
-                    outlined
-                    hover
-                    tile
-                >
-                <v-icon x-large  style="width:100%;">fas fa-users</v-icon>
-                <h3 style="color:white;">Equipe Técnica</h3>
-                </v-card>
-            </v-col>
-            <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                style="width:50%;"
-                offset-lg="0"
-            >
-                <v-card
-                    color="#03a7df"
-                    class="card"
-                    style="border:1px solid white;"      
-                    outlined
-                    hover
-                    tile
-                    to='/contate'
-                >
-                    <v-icon x-large  style="width:100%;">fas fa-phone</v-icon>
-                    <h3 style="color:white" class="text-center"> Contate nosso suporte</h3>     
-                </v-card>
-            </v-col>
-        
-        </v-row>
-        <v-row>
-            <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                offset-lg="0"
-                style="width:50%;"
-            >
-                <v-card
-                color="#03a7df"
-                class="card"
-                style="border:1px solid white;"
-                outlined
-                hover
-                tile
-                to='/cadastro'
-                >
-                <!-- <v-img contain :src="require('../../imagens/Tela home/alterar dados icon2.png')" style="width:60%; height:100%; "></v-img> -->
-                <v-icon x-large  style="width:100%;">account_box</v-icon>
-                <h3 style="color:white; " class="text-center">Alterar dados pessoais</h3>
-                </v-card>
-            </v-col>
-            <v-col
-                sm="6"
-                md="5"
-                offset-md="2"
-                lg="6"
-                offset-lg="0"
-                style="width:50%;"
-            >
-                <v-card
-                color="#03a7df"
-                class="card"
-                style="border:1px solid white;"
-                outlined
-                hover
-                tile
-                >
-                <v-icon x-large  style="width:100%;">info</v-icon>
-                <h3 style="color: white;" class="text-center">Sobre nós </h3>
-                </v-card>
-            </v-col>
-        </v-row>
-          <!-- <v-footer fixed color=#03a7df>
-        <v-spacer></v-spacer>
-        <div>&copy; {{ new Date().getFullYear() }}</div>
-      </v-footer> -->
     </v-container>
+
 </template>
 
 <script>
 export default {
+    data: () => ({
+      cards: [
+        { title: 'Orçamento', flex: 6, icon:'mdi-account-circle' },
+        { title: 'Histórico', flex: 6, icon:'mdi-account-circle' },
+        { title: 'Alterar dados', flex: 6, icon:'mdi-account-circle'},
+        { title: 'Suporte', flex: 6 , icon:'mdi-account-circle'},
+        { title: 'Alterar dados', flex: 6, icon:'mdi-account-circle'},
+        { title: 'Suporte', flex: 6, icon:'mdi-account-circle' },
+      ],
+    }),
     methods:{
         signOut(){
             return this.$store.dispatch('signUserOut')
@@ -177,5 +70,16 @@ export default {
     height: 80%;
     justify-content: center;
     
+}
+
+#text{
+    z-index: 2;
+}
+#card{
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.35);
+    z-index: 1;
+    height:150px; 
+    border-radius:20px; 
 }
 </style>

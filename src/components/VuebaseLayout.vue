@@ -1,63 +1,64 @@
 <template>
-<v-app v-if="this.$route.path!='/' && this.$route.path!='/signup'" class="change-font">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-      right
-      style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);"    >
-      <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.text"
-          link
-          @click="functions(item)"
-        
-        >
-          <v-list-item-action >
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title style="font-size:17px;"
->
-              {{ item.text }}
-              
-            </v-list-item-title>
-          </v-list-item-content>
-          </v-list-item>
-          <v-list-item @click="signOut">
-          <v-list-item-action >
-            <v-icon>fas fa-sign-out-alt</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title style="font-size:17px;">
-             Sair
-            </v-list-item-title>
-          </v-list-item-content>
-          </v-list-item>
+  <v-app v-if="this.$route.path!='/' && this.$route.path!='/signup'" class="change-font">
+      <v-navigation-drawer
+        v-model="drawer"
+        app
+        clipped
+        right
+        style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);"    >
+        <v-list dense>
+          <v-list-item
+            v-for="item in items"
+            :key="item.text"
+            link
+            @click="functions(item)"
           
-   
-      </v-list>
-      <v-footer fixed color=#03a7df>
-        <strong style="font-size:10px;">Siga-nos em nossas redes sociais!</strong>
+          >
+            <v-list-item-action >
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title style="font-size:17px;"
+  >
+                {{ item.text }}
+                
+              </v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="signOut">
+            <v-list-item-action >
+              <v-icon>fas fa-sign-out-alt</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title style="font-size:17px;">
+              Sair
+              </v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            
+    
+        </v-list>
+        <v-footer fixed color=#03a7df>
+          <strong style="font-size:10px;">Siga-nos em nossas redes sociais!</strong>
+          <v-spacer></v-spacer>
+          <div>&copy; {{ new Date().getFullYear() }}</div>
+        </v-footer>
+      </v-navigation-drawer>
+    
+      <v-toolbar color="#4169E1"   flat  max-height="50px">
+
+        <v-toolbar-title>
+        <v-img contain :src="require('../../imagens/logo.png')"  max-height="100px " ></v-img>
+        </v-toolbar-title>
+
         <v-spacer></v-spacer>
-        <div>&copy; {{ new Date().getFullYear() }}</div>
-      </v-footer>
-    </v-navigation-drawer>
-  <v-toolbar color="#03a7df" flat app max-height="50px">
-
-      <v-toolbar-title>
-       <v-img contain :src="require('../../imagens/logo.png')"  max-height="100px " ></v-img>
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon  @click.stop="drawer = !drawer" ></v-app-bar-nav-icon>
-     
-    </v-toolbar>
-    <v-content style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);">
-        <router-view></router-view>
-    </v-content>
-  </v-app>
+        <v-app-bar-nav-icon  @click.stop="drawer = !drawer" ></v-app-bar-nav-icon>
+      
+      </v-toolbar>
+      <v-content style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);">
+          <router-view></router-view>
+      </v-content>
+    </v-app>
   <v-app v-else >
     <v-content style="background-image: linear-gradient(to bottom,#4169E1	,#1E90FF, #03a7df);">
         <router-view></router-view>
